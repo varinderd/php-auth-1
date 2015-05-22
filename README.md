@@ -1,5 +1,7 @@
-php-auth
+php-auth 
 ========
+
+[![Build Status](https://secure.travis-ci.org/pmill/php-auth.svg?branch=master)](http://travis-ci.org/guzzle/guzzle)
 
 Introduction
 ------------
