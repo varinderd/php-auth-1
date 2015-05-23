@@ -2,6 +2,7 @@
 namespace pmill\Auth;
 
 use Aura\Session\Segment;
+use pmill\Auth\Exceptions\HashException;
 use pmill\Auth\Exceptions\PasswordException;
 use pmill\Auth\Exceptions\TwoFactorAuthException;
 use pmill\Auth\Interfaces\AuthUser;
@@ -121,11 +122,17 @@ class Auth
 
     /**
      * @param string $submittedPassword
-     * @return bool|false|string
+     * @return bool|string
+     * @throws HashException
      */
     public function hashPassword($submittedPassword)
     {
-        return password_hash($submittedPassword, PASSWORD_BCRYPT);
+        $hash = password_hash($submittedPassword, PASSWORD_BCRYPT);
+        if ($hash === false) {
+            throw new HashException('Failed to hash submitted password');
+        }
+
+        return $hash;
     }
 
     public function logout()

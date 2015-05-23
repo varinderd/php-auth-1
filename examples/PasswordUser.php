@@ -1,4 +1,5 @@
 <?php
+namespace examples;
 
 class PasswordUser implements \pmill\Auth\Interfaces\AuthUser
 {
@@ -60,6 +61,7 @@ class PasswordUser implements \pmill\Auth\Interfaces\AuthUser
 
     /**
      * @param string $password
+     * @throws \pmill\Auth\Exceptions\HashException
      */
     public function setPassword($password)
     {

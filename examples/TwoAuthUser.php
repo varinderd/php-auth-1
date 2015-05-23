@@ -1,4 +1,5 @@
 <?php
+namespace examples;
 
 class TwoAuthUser implements \pmill\Auth\Interfaces\AuthUser
 {
@@ -65,6 +66,7 @@ class TwoAuthUser implements \pmill\Auth\Interfaces\AuthUser
 
     /**
      * @param string $password
+     * @throws \pmill\Auth\Exceptions\HashException
      */
     public function setPassword($password)
     {

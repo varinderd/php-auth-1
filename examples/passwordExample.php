@@ -4,7 +4,7 @@ require_once 'PasswordUser.php';
 
 $output = [];
 
-$user = new PasswordUser();
+$user = new examples\PasswordUser();
 $user->setId(1);
 $user->setUsername('username');
 $user->setPassword('hunter2');

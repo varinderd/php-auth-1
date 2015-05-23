@@ -4,7 +4,7 @@ require_once 'TwoAuthUser.php';
 
 $output = [];
 
-$user = new TwoAuthUser();
+$user = new examples\TwoAuthUser();
 $user->setId(1);
 $user->setUsername('username');
 $user->setPassword('hunter2');
