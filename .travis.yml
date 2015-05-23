@@ -10,4 +10,4 @@ before_script:
   - git config --global user.email "dev.pmill@gmail.com"
   - git config --global user.name "pmill"
 after_script:
-  - php composer/bin/test-reporter
+  - php vendor/bin/test-reporter
