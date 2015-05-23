@@ -6,7 +6,7 @@ php-auth
 Introduction
 ------------
 
-This package contains a simple PHP authentication library.
+This package contains a simple framework agnostic PHP authentication library.
 
 
 Installation
