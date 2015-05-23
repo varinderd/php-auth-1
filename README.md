@@ -1,7 +1,7 @@
 php-auth 
 ========
 
-[![Build Status](https://secure.travis-ci.org/pmill/php-auth.svg?branch=master)](http://travis-ci.org/guzzle/guzzle)[![Code Climate](https://codeclimate.com/github/pmill/php-auth/badges/gpa.svg)](https://codeclimate.com/github/pmill/php-auth)[![Test Coverage](https://codeclimate.com/github/pmill/php-auth/badges/coverage.svg)](https://codeclimate.com/github/pmill/php-auth/coverage)
+[![Build Status](https://secure.travis-ci.org/pmill/php-auth.svg?branch=master)](http://travis-ci.org/guzzle/guzzle) [![Code Climate](https://codeclimate.com/github/pmill/php-auth/badges/gpa.svg)](https://codeclimate.com/github/pmill/php-auth) [![Test Coverage](https://codeclimate.com/github/pmill/php-auth/badges/coverage.svg)](https://codeclimate.com/github/pmill/php-auth/coverage)
 
 Introduction
 ------------
