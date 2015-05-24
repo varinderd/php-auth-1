@@ -76,6 +76,10 @@ Attempt the login
 Version History
 ---------------
 
+0.2.1 (24/05/2015)
+
+*   Fixed a bug where we were coding against the implementation of PasswordHelper rather than the interface
+
 0.2.0 (23/05/2015)
 
 *   Separated Auth class into Authentication and Password
