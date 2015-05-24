@@ -30,6 +30,11 @@ class Authenticate
     protected $loginLimitReached = false;
 
     /**
+     * @var Password
+     */
+    protected $passwordHelper;
+
+    /**
      * @var int
      */
     protected $loginAttempts = 0;
@@ -39,6 +44,8 @@ class Authenticate
         $sessionFactory = new \Aura\Session\SessionFactory;
         $session = $sessionFactory->newInstance($_COOKIE);
         $this->session = $session->getSegment('pmill\Auth\Login');
+
+        $this->passwordHelper = new Password;
 
         $this->loggedInUserId = $this->session->get('loggedInUserId');
 
@@ -58,8 +65,7 @@ class Authenticate
         $this->checkLoginAttempts();
         $this->increaseLoginAttempts();
 
-        $passwordHelper = new Password;
-        if (!$passwordHelper->verify($userToAuthenticate->getAuthPassword(), $submittedPassword)) {
+        if (!$this->passwordHelper->verify($userToAuthenticate->getAuthPassword(), $submittedPassword)) {
             throw new PasswordException('The supplied password is incorrect for the user {'.$userToAuthenticate->getAuthUsername().'}');
         }
 
@@ -187,6 +193,22 @@ class Authenticate
     public function setLoginAttempts($loginAttempts)
     {
         $this->loginAttempts = $loginAttempts;
+    }
+
+    /**
+     * @return Password
+     */
+    public function getPasswordHelper()
+    {
+        return $this->passwordHelper;
+    }
+
+    /**
+     * @param Password $passwordHelper
+     */
+    public function setPasswordHelper($passwordHelper)
+    {
+        $this->passwordHelper = $passwordHelper;
     }
 
 }
