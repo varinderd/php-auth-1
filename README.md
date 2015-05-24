@@ -55,7 +55,7 @@ Implement the AuthUser interface on your existing user class. Make sure when you
 
 Create your user instance
 
-    $user = new PasswordUser();
+    $user = new User();
     $user->setId(1);
     $user->setUsername('username');
     $user->setPassword('password');
