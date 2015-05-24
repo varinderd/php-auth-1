@@ -9,7 +9,7 @@ $user->setId(1);
 $user->setUsername('username');
 $user->setPassword('hunter2');
 
-$auth = new \pmill\Auth\Auth;
+$auth = new \pmill\Auth\Authenticate;
 $auth->setMaxAttempts(3);
 
 /**

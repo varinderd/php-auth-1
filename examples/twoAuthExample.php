@@ -10,7 +10,7 @@ $user->setUsername('username');
 $user->setPassword('hunter2');
 $user->setTwoAuthSecret('abcdefg1234567');
 
-$auth = new \pmill\Auth\Auth;
+$auth = new \pmill\Auth\Authenticate;
 $auth->setMaxAttempts(3);
 
 /**

@@ -65,8 +65,8 @@ class PasswordUser implements \pmill\Auth\Interfaces\AuthUser
      */
     public function setPassword($password)
     {
-        $auth = new \pmill\Auth\Auth;
-        $this->password = $auth->hashPassword($password);
+        $passwordHelper = new \pmill\Auth\Password;
+        $this->password = $passwordHelper->hash($password);
     }
 
     /**

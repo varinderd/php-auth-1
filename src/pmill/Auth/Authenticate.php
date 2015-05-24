@@ -2,12 +2,11 @@
 namespace pmill\Auth;
 
 use Aura\Session\Segment;
-use pmill\Auth\Exceptions\HashException;
 use pmill\Auth\Exceptions\PasswordException;
 use pmill\Auth\Exceptions\TwoFactorAuthException;
 use pmill\Auth\Interfaces\AuthUser;
 
-class Auth
+class Authenticate
 {
 
     /**
@@ -59,7 +58,8 @@ class Auth
         $this->checkLoginAttempts();
         $this->increaseLoginAttempts();
 
-        if (!$this->verifyPassword($userToAuthenticate->getAuthPassword(), $submittedPassword)) {
+        $passwordHelper = new Password;
+        if (!$passwordHelper->verify($userToAuthenticate->getAuthPassword(), $submittedPassword)) {
             throw new PasswordException('The supplied password is incorrect for the user {'.$userToAuthenticate->getAuthUsername().'}');
         }
 
@@ -101,16 +101,6 @@ class Auth
     }
 
     /**
-     * @param string $savedPassword
-     * @param string $submittedPassword
-     * @return bool
-     */
-    public function verifyPassword($savedPassword, $submittedPassword)
-    {
-        return password_verify($submittedPassword, $savedPassword);
-    }
-
-    /**
      * @param string $savedSecret
      * @param string $submittedSecret
      * @return bool
@@ -118,21 +108,6 @@ class Auth
     public function verifyTwoFactorAuth($savedSecret, $submittedSecret)
     {
         return $savedSecret == $submittedSecret;
-    }
-
-    /**
-     * @param string $submittedPassword
-     * @return bool|string
-     * @throws HashException
-     */
-    public function hashPassword($submittedPassword)
-    {
-        $hash = password_hash($submittedPassword, PASSWORD_BCRYPT);
-        if ($hash === false) {
-            throw new HashException('Failed to hash submitted password');
-        }
-
-        return $hash;
     }
 
     public function logout()

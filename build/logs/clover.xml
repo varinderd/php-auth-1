@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1432468877">
+  <project timestamp="1432468877">
+    <package name="pmill\Auth">
+      <file name="/var/www/pmill/libraries/php-auth/src/pmill/Auth/Authenticate.php">
+        <class name="Authenticate" namespace="pmill\Auth">
+          <metrics methods="17" coveredmethods="14" conditionals="0" coveredconditionals="0" statements="48" coveredstatements="43" elements="65" coveredelements="57"/>
+        </class>
+        <line num="37" type="method" name="__construct" crap="1" count="10"/>
+        <line num="39" type="stmt" count="10"/>
+        <line num="40" type="stmt" count="10"/>
+        <line num="41" type="stmt" count="10"/>
+        <line num="43" type="stmt" count="10"/>
+        <line num="45" type="stmt" count="10"/>
+        <line num="46" type="stmt" count="10"/>
+        <line num="47" type="stmt" count="10"/>
+        <line num="56" type="method" name="login" crap="5" count="8"/>
+        <line num="58" type="stmt" count="8"/>
+        <line num="59" type="stmt" count="8"/>
+        <line num="61" type="stmt" count="8"/>
+        <line num="62" type="stmt" count="8"/>
+        <line num="63" type="stmt" count="3"/>
+        <line num="66" type="stmt" count="5"/>
+        <line num="67" type="stmt" count="2"/>
+        <line num="68" type="stmt" count="1"/>
+        <line num="69" type="stmt" count="1"/>
+        <line num="70" type="stmt" count="1"/>
+        <line num="72" type="stmt" count="4"/>
+        <line num="73" type="stmt" count="4"/>
+        <line num="78" type="method" name="loginUser" crap="1" count="5"/>
+        <line num="80" type="stmt" count="5"/>
+        <line num="81" type="stmt" count="5"/>
+        <line num="82" type="stmt" count="5"/>
+        <line num="84" type="method" name="resetLoginAttempts" crap="1" count="2"/>
+        <line num="86" type="stmt" count="2"/>
+        <line num="87" type="stmt" count="2"/>
+        <line num="88" type="stmt" count="2"/>
+        <line num="90" type="method" name="checkLoginAttempts" crap="3" count="10"/>
+        <line num="92" type="stmt" count="10"/>
+        <line num="93" type="stmt" count="1"/>
+        <line num="94" type="stmt" count="1"/>
+        <line num="95" type="stmt" count="10"/>
+        <line num="97" type="method" name="increaseLoginAttempts" crap="1" count="8"/>
+        <line num="99" type="stmt" count="8"/>
+        <line num="100" type="stmt" count="8"/>
+        <line num="101" type="stmt" count="8"/>
+        <line num="108" type="method" name="verifyTwoFactorAuth" crap="1" count="3"/>
+        <line num="110" type="stmt" count="3"/>
+        <line num="113" type="method" name="logout" crap="1" count="1"/>
+        <line num="115" type="stmt" count="1"/>
+        <line num="116" type="stmt" count="1"/>
+        <line num="117" type="stmt" count="1"/>
+        <line num="122" type="method" name="isLoggedIn" crap="1" count="1"/>
+        <line num="124" type="stmt" count="1"/>
+        <line num="131" type="method" name="isTwoFactorAuthenticationRequired" crap="1" count="5"/>
+        <line num="133" type="stmt" count="5"/>
+        <line num="139" type="method" name="getLoggedInUserId" crap="1" count="4"/>
+        <line num="141" type="stmt" count="4"/>
+        <line num="147" type="method" name="getMaxAttempts" crap="2" count="0"/>
+        <line num="149" type="stmt" count="0"/>
+        <line num="155" type="method" name="setMaxAttempts" crap="1" count="1"/>
+        <line num="157" type="stmt" count="1"/>
+        <line num="158" type="stmt" count="1"/>
+        <line num="163" type="method" name="isLoginLimitReached" crap="1" count="1"/>
+        <line num="165" type="stmt" count="1"/>
+        <line num="171" type="method" name="setLoginLimitReached" crap="2" count="0"/>
+        <line num="173" type="stmt" count="0"/>
+        <line num="174" type="stmt" count="0"/>
+        <line num="179" type="method" name="getLoginAttempts" crap="1" count="2"/>
+        <line num="181" type="stmt" count="2"/>
+        <line num="187" type="method" name="setLoginAttempts" crap="2" count="0"/>
+        <line num="189" type="stmt" count="0"/>
+        <line num="190" type="stmt" count="0"/>
+        <metrics loc="191" ncloc="133" classes="1" methods="17" coveredmethods="14" conditionals="0" coveredconditionals="0" statements="48" coveredstatements="43" elements="65" coveredelements="57"/>
+      </file>
+      <file name="/var/www/pmill/libraries/php-auth/src/pmill/Auth/Password.php">
+        <class name="Password" namespace="pmill\Auth">
+          <metrics methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="4" elements="7" coveredelements="5"/>
+        </class>
+        <line num="14" type="method" name="verify" crap="1" count="10"/>
+        <line num="16" type="stmt" count="10"/>
+        <line num="24" type="method" name="hash" crap="2.06" count="2"/>
+        <line num="26" type="stmt" count="2"/>
+        <line num="27" type="stmt" count="2"/>
+        <line num="28" type="stmt" count="0"/>
+        <line num="31" type="stmt" count="2"/>
+        <metrics loc="33" ncloc="23" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="4" elements="7" coveredelements="5"/>
+      </file>
+    </package>
+    <package name="pmill\Auth\Exceptions">
+      <file name="/var/www/pmill/libraries/php-auth/src/pmill/Auth/Exceptions/PasswordException.php">
+        <class name="PasswordException" namespace="pmill\Auth\Exceptions">
+          <metrics methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+        </class>
+        <metrics loc="6" ncloc="6" classes="1" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+      </file>
+      <file name="/var/www/pmill/libraries/php-auth/src/pmill/Auth/Exceptions/TwoFactorAuthException.php">
+        <class name="TwoFactorAuthException" namespace="pmill\Auth\Exceptions">
+          <metrics methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+        </class>
+        <metrics loc="6" ncloc="6" classes="1" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+      </file>
+    </package>
+    <file name="/var/www/pmill/libraries/php-auth/src/pmill/Auth/Interfaces/AuthUser.php">
+      <metrics loc="26" ncloc="14" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="/var/www/pmill/libraries/php-auth/src/pmill/Auth/Interfaces/PasswordHelper.php">
+      <metrics loc="16" ncloc="10" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <metrics files="6" loc="278" ncloc="192" classes="4" methods="19" coveredmethods="15" conditionals="0" coveredconditionals="0" statements="53" coveredstatements="47" elements="72" coveredelements="62"/>
+  </project>
+</coverage>

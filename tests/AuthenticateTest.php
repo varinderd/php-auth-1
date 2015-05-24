@@ -1,6 +1,6 @@
 <?php
 
-class AuthTest extends PHPUnit_Framework_TestCase
+class AuthenticateTest extends PHPUnit_Framework_TestCase
 {
 
     /**
@@ -13,33 +13,6 @@ class AuthTest extends PHPUnit_Framework_TestCase
      */
     protected $correctHashedPassword = '$2y$10$dYXhwn/UUEPR3h5EymE5YeSpkieq07QdZN9D0csqiRG3DwxupANWO';
 
-    public function testHashPassword()
-    {
-        $auth = new \pmill\Auth\Auth;
-        $hashResult = $auth->hashPassword($this->rawPassword);
-
-        $verificationResult = password_verify($this->rawPassword, $hashResult);
-        $this->assertTrue($verificationResult);
-    }
-
-    public function testVerifyPasswordCorrect()
-    {
-        $passwordToTest = 'hunter2';
-
-        $auth = new \pmill\Auth\Auth;
-        $verifyPasswordResult = $auth->verifyPassword(password_hash($passwordToTest, PASSWORD_BCRYPT), $passwordToTest);
-
-        $this->assertTrue($verifyPasswordResult);
-    }
-
-    public function testVerifyPasswordIncorrect()
-    {
-        $auth = new \pmill\Auth\Auth;
-        $verifyPasswordResult = $auth->verifyPassword($auth->hashPassword('hunter2'), 'incorrect-password');
-
-        $this->assertFalse($verifyPasswordResult);
-    }
-
     /**
      * @expectedException \pmill\Auth\Exceptions\PasswordException
      */
@@ -49,7 +22,7 @@ class AuthTest extends PHPUnit_Framework_TestCase
         $user->method('getAuthId')->willReturn(1);
         $user->method('getAuthPassword')->willReturn('incorrect-password');
 
-        $auth = new \pmill\Auth\Auth;
+        $auth = new \pmill\Auth\Authenticate;
         $auth->login($user, 'incorrect-password');
     }
 
@@ -59,7 +32,7 @@ class AuthTest extends PHPUnit_Framework_TestCase
         $user->method('getAuthId')->willReturn(1);
         $user->method('getAuthPassword')->willReturn($this->correctHashedPassword);
 
-        $auth = new \pmill\Auth\Auth;
+        $auth = new \pmill\Auth\Authenticate;
         $auth->login($user, $this->rawPassword);
 
         $this->assertEquals(1, $auth->getLoggedInUserId());
@@ -75,7 +48,7 @@ class AuthTest extends PHPUnit_Framework_TestCase
         $user->method('getAuthPassword')->willReturn($this->correctHashedPassword);
         $user->method('getTwoFactorSecret')->willReturn('abcdef123456');
 
-        $auth = new \pmill\Auth\Auth;
+        $auth = new \pmill\Auth\Authenticate;
         $auth->login($user, $this->rawPassword, 'incorrect-secret');
     }
 
@@ -86,7 +59,7 @@ class AuthTest extends PHPUnit_Framework_TestCase
         $user->method('getAuthPassword')->willReturn($this->correctHashedPassword);
         $user->method('getTwoFactorSecret')->willReturn('abcdef123456');
 
-        $auth = new \pmill\Auth\Auth;
+        $auth = new \pmill\Auth\Authenticate;
         $auth->login($user, $this->rawPassword, 'abcdef123456');
 
         $this->assertEquals(1, $auth->getLoggedInUserId());
@@ -97,7 +70,7 @@ class AuthTest extends PHPUnit_Framework_TestCase
         $user = $this->getMockBuilder('\pmill\Auth\Interfaces\AuthUser')->getMock();
         $user->method('getAuthId')->willReturn(1);
 
-        $auth = new \pmill\Auth\Auth;
+        $auth = new \pmill\Auth\Authenticate;
         $auth->loginUser($user);
 
         $this->assertEquals(1, $auth->getLoggedInUserId());
@@ -110,7 +83,7 @@ class AuthTest extends PHPUnit_Framework_TestCase
         $user->method('getAuthPassword')->willReturn($this->correctHashedPassword);
         $user->method('getTwoFactorSecret')->willReturn('abcdef123456');
 
-        $auth = new \pmill\Auth\Auth;
+        $auth = new \pmill\Auth\Authenticate;
         $this->assertTrue($auth->verifyTwoFactorAuth($user->getTwoFactorSecret(), 'abcdef123456'));
     }
 
@@ -120,7 +93,7 @@ class AuthTest extends PHPUnit_Framework_TestCase
         $user->method('getAuthId')->willReturn(1);
         $user->method('getAuthPassword')->willReturn($this->correctHashedPassword);
 
-        $auth = new \pmill\Auth\Auth;
+        $auth = new \pmill\Auth\Authenticate;
         $auth->login($user, $this->rawPassword);
 
         $this->assertEquals(1, $auth->getLoggedInUserId());
@@ -135,7 +108,7 @@ class AuthTest extends PHPUnit_Framework_TestCase
         $user->method('getAuthId')->willReturn(1);
         $user->method('getAuthPassword')->willReturn($this->correctHashedPassword);
 
-        $auth = new \pmill\Auth\Auth;
+        $auth = new \pmill\Auth\Authenticate;
         $this->assertFalse($auth->isLoggedIn());
 
         $auth->login($user, $this->rawPassword);
@@ -148,7 +121,7 @@ class AuthTest extends PHPUnit_Framework_TestCase
         $user->method('getAuthId')->willReturn(1);
         $user->method('getAuthPassword')->willReturn($this->correctHashedPassword);
 
-        $auth = new \pmill\Auth\Auth;
+        $auth = new \pmill\Auth\Authenticate;
 
         for ($i=1; $i<=10; $i++) {
             try {
@@ -172,7 +145,7 @@ class AuthTest extends PHPUnit_Framework_TestCase
         $user->method('getAuthId')->willReturn(1);
         $user->method('getAuthPassword')->willReturn($this->correctHashedPassword);
 
-        $auth = new \pmill\Auth\Auth;
+        $auth = new \pmill\Auth\Authenticate;
         $auth->setMaxAttempts($maxLoginAttempts);
         $auth->resetLoginAttempts();
 
