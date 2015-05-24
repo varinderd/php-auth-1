@@ -30,7 +30,7 @@ class Authenticate
     protected $loginLimitReached = false;
 
     /**
-     * @var Password
+     * @var Interfaces\PasswordHelper
      */
     protected $passwordHelper;
 
@@ -196,7 +196,7 @@ class Authenticate
     }
 
     /**
-     * @return Password
+     * @return Interfaces\PasswordHelper
      */
     public function getPasswordHelper()
     {
@@ -204,9 +204,9 @@ class Authenticate
     }
 
     /**
-     * @param Password $passwordHelper
+     * @param Interfaces\PasswordHelper $passwordHelper
      */
-    public function setPasswordHelper($passwordHelper)
+    public function setPasswordHelper(Interfaces\PasswordHelper $passwordHelper)
     {
         $this->passwordHelper = $passwordHelper;
     }

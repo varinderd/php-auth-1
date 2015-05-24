@@ -166,4 +166,20 @@ class AuthenticateTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    public function testSetPasswordHelper()
+    {
+        $savedHash = 'savedHash';
+
+        $passwordHelperStub = $this->getMock('\pmill\Auth\Interfaces\PasswordHelper');
+        $passwordHelperStub->method('hash')->willReturn($savedHash);
+        $passwordHelperStub->method('verify')->willReturn(true);
+
+        $auth = new \pmill\Auth\Authenticate;
+        $auth->setPasswordHelper($passwordHelperStub);
+
+        $this->assertInstanceOf('\pmill\Auth\Interfaces\PasswordHelper', $auth->getPasswordHelper());
+        $this->assertEquals($savedHash, $passwordHelperStub->hash('test'));
+        $this->assertEquals(true, $passwordHelperStub->verify('test', 'value'));
+    }
+
 }
