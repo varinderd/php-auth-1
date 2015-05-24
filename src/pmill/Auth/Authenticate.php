@@ -60,13 +60,13 @@ class Authenticate
      * @throws PasswordException
      * @throws TwoFactorAuthException
      */
-    public function login(AuthUser $userToAuthenticate, $submittedPassword, $submittedTwoFactorSecret=null)
+    public function login(AuthUser $userToAuthenticate, $submittedPassword, $submittedTwoFactorSecret = null)
     {
         $this->checkLoginAttempts();
         $this->increaseLoginAttempts();
 
         if (!$this->passwordHelper->verify($userToAuthenticate->getAuthPassword(), $submittedPassword)) {
-            throw new PasswordException('The supplied password is incorrect for the user {'.$userToAuthenticate->getAuthUsername().'}');
+            throw new PasswordException('The supplied password is incorrect for the user {' . $userToAuthenticate->getAuthUsername() . '}');
         }
 
         if ($this->isTwoFactorAuthenticationRequired($userToAuthenticate)) {

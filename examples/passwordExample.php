@@ -25,7 +25,7 @@ $auth->logout();
 try {
     $auth->login($user, 'incorrect-password');
 }
-catch(\pmill\Auth\Exceptions\PasswordException $e) {
+catch (\pmill\Auth\Exceptions\PasswordException $e) {
     $output[] = 'login failed, incorrect password';
 }
 

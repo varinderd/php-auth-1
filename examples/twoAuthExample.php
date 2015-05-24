@@ -26,7 +26,7 @@ $auth->logout();
 try {
     $auth->login($user, 'incorrect-password', 'abcdefg1234567');
 }
-catch(\pmill\Auth\Exceptions\PasswordException $e) {
+catch (\pmill\Auth\Exceptions\PasswordException $e) {
     $output[] = 'login failed, incorrect password';
 }
 
@@ -36,7 +36,7 @@ catch(\pmill\Auth\Exceptions\PasswordException $e) {
 try {
     $auth->login($user, 'hunter2', 'incorrect-secret');
 }
-catch(\pmill\Auth\Exceptions\TwoFactorAuthException $e) {
+catch (\pmill\Auth\Exceptions\TwoFactorAuthException $e) {
     $output[] = 'login failed, incorrect 2fa secret';
 }
 
