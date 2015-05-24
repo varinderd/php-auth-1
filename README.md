@@ -44,8 +44,8 @@ Implement the AuthUser interface on your existing user class. Make sure when you
     {
         public function setPassword($password)
         {
-            $auth = new \pmill\Auth\Auth;
-            $this->password = $auth->hashPassword($password);
+            $passwordHelper = new \pmill\Auth\Password;
+            $this->password = $passwordHelper->hash($password);
         }
         
         /**
@@ -53,17 +53,20 @@ Implement the AuthUser interface on your existing user class. Make sure when you
          */
     }
 
-Create a new Auth instance
+Create your user instance
 
     $user = new PasswordUser();
     $user->setId(1);
     $user->setUsername('username');
     $user->setPassword('password');
+
+Attempt the login
      
-    $auth = new \pmill\Auth\Auth;
+    $auth = new \pmill\Auth\Authenticate;
 
     try {
         $auth->login($user, 'password');
+        echo 'login succeeded';
     }
     catch(\pmill\Auth\Exceptions\PasswordException $e) {
         echo 'login failed, incorrect password';
@@ -72,6 +75,10 @@ Create a new Auth instance
 
 Version History
 ---------------
+
+0.2.0 (23/05/2015)
+
+*   Separated Auth class into Authentication and Password
 
 0.1.1 (23/05/2015)
 
