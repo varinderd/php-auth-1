@@ -73,6 +73,10 @@ Create a new Auth instance
 Version History
 ---------------
 
+0.1.1 (23/05/2015)
+
+*   Added unit tests
+
 0.1.0 (22/05/2015)
 
 *   First public release of php-auth
