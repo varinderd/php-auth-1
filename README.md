@@ -76,6 +76,10 @@ Attempt the login
 Version History
 ---------------
 
+0.2.3 (30/05/2015)
+
+*   Added customisable session key
+
 0.2.2 (25/05/2015)
 
 *   Separated out the two factor authentication code in Authentication.php into a separate injectable class
