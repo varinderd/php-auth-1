@@ -76,6 +76,10 @@ Attempt the login
 Version History
 ---------------
 
+0.2.2 (25/05/2015)
+
+*   Separated out the two factor authentication code in Authentication.php into a separate injectable class
+
 0.2.1 (24/05/2015)
 
 *   Fixed a bug where we were coding against the implementation of PasswordHelper rather than the interface

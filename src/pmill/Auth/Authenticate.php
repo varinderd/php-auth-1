@@ -40,17 +40,27 @@ class Authenticate
     protected $passwordHelper;
 
     /**
+     * @var Interfaces\TwoFactorAuthenticationHelper.php
+     */
+    protected $twoFactorAuthHelper;
+
+    /**
      * @var int
      */
     protected $loginAttempts = 0;
 
-    public function __construct()
+    /**
+     * @param Interfaces\PasswordHelper $passwordHelper
+     * @param Interfaces\TwoFactorAuthenticationHelper $twoFactorAuthHelper
+     */
+    public function __construct(Interfaces\PasswordHelper $passwordHelper=null, Interfaces\TwoFactorAuthenticationHelper $twoFactorAuthHelper=null)
     {
+        $this->passwordHelper = $passwordHelper ? $passwordHelper : new Password;
+        $this->twoFactorAuthHelper = $twoFactorAuthHelper ? $twoFactorAuthHelper : new TwoFactorAuthentication;
+
         $sessionFactory = new \Aura\Session\SessionFactory;
         $session = $sessionFactory->newInstance($_COOKIE);
         $this->session = $session->getSegment($this->sessionKey);
-
-        $this->passwordHelper = new Password;
 
         $this->loggedInUserId = $this->session->get('loggedInUserId');
 
@@ -74,8 +84,8 @@ class Authenticate
             throw new PasswordException('The supplied password is incorrect for the user {' . $userToAuthenticate->getAuthUsername() . '}');
         }
 
-        if ($this->isTwoFactorAuthenticationRequired($userToAuthenticate)) {
-            if (is_null($submittedTwoFactorSecret) || !$this->verifyTwoFactorAuth($userToAuthenticate->getTwoFactorSecret(), $submittedTwoFactorSecret)) {
+        if ($this->twoFactorAuthHelper->required($userToAuthenticate)) {
+            if (is_null($submittedTwoFactorSecret) || !$this->twoFactorAuthHelper->verify($userToAuthenticate->getTwoFactorSecret(), $submittedTwoFactorSecret)) {
                 throw new TwoFactorAuthException('The supplied 2fa secret is incorrect for the user {' . $userToAuthenticate->getAuthUsername() . '}');
             }
         }
@@ -111,16 +121,6 @@ class Authenticate
         $this->session->set('loginAttempts', $this->loginAttempts);
     }
 
-    /**
-     * @param string $savedSecret
-     * @param string $submittedSecret
-     * @return bool
-     */
-    public function verifyTwoFactorAuth($savedSecret, $submittedSecret)
-    {
-        return $savedSecret == $submittedSecret;
-    }
-
     public function logout()
     {
         $this->session->set('loggedInUserId', null);
@@ -133,15 +133,6 @@ class Authenticate
     public function isLoggedIn()
     {
         return !is_null($this->loggedInUserId);
-    }
-
-    /**
-     * @param AuthUser $userToAuthenticate
-     * @return bool
-     */
-    protected function isTwoFactorAuthenticationRequired(AuthUser $userToAuthenticate)
-    {
-        return !is_null($userToAuthenticate->getTwoFactorSecret());
     }
 
     /**
@@ -230,6 +221,22 @@ class Authenticate
     public function setSessionKey($sessionKey)
     {
         $this->sessionKey = $sessionKey;
+    }
+
+    /**
+     * @return Interfaces\TwoFactorAuthenticationHelper
+     */
+    public function getTwoFactorAuthHelper()
+    {
+        return $this->twoFactorAuthHelper;
+    }
+
+    /**
+     * @param Interfaces\TwoFactorAuthenticationHelper $twoFactorAuthHelper
+     */
+    public function setTwoFactorAuthHelper($twoFactorAuthHelper)
+    {
+        $this->twoFactorAuthHelper = $twoFactorAuthHelper;
     }
 
 }

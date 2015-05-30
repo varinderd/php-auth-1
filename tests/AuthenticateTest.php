@@ -38,33 +38,6 @@ class AuthenticateTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, $auth->getLoggedInUserId());
     }
 
-    /**
-     * @expectedException \pmill\Auth\Exceptions\TwoFactorAuthException
-     */
-    public function testIncorrectSecret()
-    {
-        $user = $this->getMockBuilder('\pmill\Auth\Interfaces\AuthUser')->getMock();
-        $user->method('getAuthId')->willReturn(1);
-        $user->method('getAuthPassword')->willReturn($this->correctHashedPassword);
-        $user->method('getTwoFactorSecret')->willReturn('abcdef123456');
-
-        $auth = new \pmill\Auth\Authenticate;
-        $auth->login($user, $this->rawPassword, 'incorrect-secret');
-    }
-
-    public function testCorrectSecret()
-    {
-        $user = $this->getMockBuilder('\pmill\Auth\Interfaces\AuthUser')->getMock();
-        $user->method('getAuthId')->willReturn(1);
-        $user->method('getAuthPassword')->willReturn($this->correctHashedPassword);
-        $user->method('getTwoFactorSecret')->willReturn('abcdef123456');
-
-        $auth = new \pmill\Auth\Authenticate;
-        $auth->login($user, $this->rawPassword, 'abcdef123456');
-
-        $this->assertEquals(1, $auth->getLoggedInUserId());
-    }
-
     public function testLoginUser()
     {
         $user = $this->getMockBuilder('\pmill\Auth\Interfaces\AuthUser')->getMock();
@@ -74,17 +47,6 @@ class AuthenticateTest extends PHPUnit_Framework_TestCase
         $auth->loginUser($user);
 
         $this->assertEquals(1, $auth->getLoggedInUserId());
-    }
-
-    public function testVerifyTwoFactorAuth()
-    {
-        $user = $this->getMockBuilder('\pmill\Auth\Interfaces\AuthUser')->getMock();
-        $user->method('getAuthId')->willReturn(1);
-        $user->method('getAuthPassword')->willReturn($this->correctHashedPassword);
-        $user->method('getTwoFactorSecret')->willReturn('abcdef123456');
-
-        $auth = new \pmill\Auth\Authenticate;
-        $this->assertTrue($auth->verifyTwoFactorAuth($user->getTwoFactorSecret(), 'abcdef123456'));
     }
 
     public function testLogout()
@@ -186,13 +148,13 @@ class AuthenticateTest extends PHPUnit_Framework_TestCase
     {
         $authInstances = array();
 
-        for ($i=1; $i<=2; $i++) {
+        for ($i = 1; $i <= 2; $i++) {
             $user = $this->getMockBuilder('\pmill\Auth\Interfaces\AuthUser')->getMock();
             $user->method('getAuthId')->willReturn($i);
             $user->method('getAuthPassword')->willReturn($this->correctHashedPassword);
 
             $auth = new \pmill\Auth\Authenticate;
-            $auth->setSessionKey('testSessionKey'.$i);
+            $auth->setSessionKey('testSessionKey' . $i);
             $auth->login($user, $this->rawPassword);
             $authInstances[$i] = $auth;
         }
@@ -201,6 +163,18 @@ class AuthenticateTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('testSessionKey2', $authInstances[2]->getSessionKey());
         $this->assertEquals(1, $authInstances[1]->getLoggedInUserId());
         $this->assertEquals(2, $authInstances[2]->getLoggedInUserId());
+    }
+
+    public function testSetTwoFactorAuthHelper()
+    {
+        $twoFactorHelperStub = $this->getMock('\pmill\Auth\Interfaces\TwoFactorAuthenticationHelper');
+        $twoFactorHelperStub->method('required')->willReturn(true);
+        $twoFactorHelperStub->method('verify')->willReturn(true);
+
+        $auth = new \pmill\Auth\Authenticate;
+        $auth->setTwoFactorAuthHelper($twoFactorHelperStub);
+
+        $this->assertInstanceOf('\pmill\Auth\Interfaces\TwoFactorAuthenticationHelper', $auth->getTwoFactorAuthHelper());
     }
 
 }
