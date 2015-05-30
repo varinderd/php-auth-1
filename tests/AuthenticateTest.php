@@ -182,4 +182,25 @@ class AuthenticateTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(true, $passwordHelperStub->verify('test', 'value'));
     }
 
+    public function testSessionKey()
+    {
+        $authInstances = array();
+
+        for ($i=1; $i<=2; $i++) {
+            $user = $this->getMockBuilder('\pmill\Auth\Interfaces\AuthUser')->getMock();
+            $user->method('getAuthId')->willReturn($i);
+            $user->method('getAuthPassword')->willReturn($this->correctHashedPassword);
+
+            $auth = new \pmill\Auth\Authenticate;
+            $auth->setSessionKey('testSessionKey'.$i);
+            $auth->login($user, $this->rawPassword);
+            $authInstances[$i] = $auth;
+        }
+
+        $this->assertEquals('testSessionKey1', $authInstances[1]->getSessionKey());
+        $this->assertEquals('testSessionKey2', $authInstances[2]->getSessionKey());
+        $this->assertEquals(1, $authInstances[1]->getLoggedInUserId());
+        $this->assertEquals(2, $authInstances[2]->getLoggedInUserId());
+    }
+
 }

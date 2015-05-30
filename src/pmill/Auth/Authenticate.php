@@ -25,6 +25,11 @@ class Authenticate
     protected $session;
 
     /**
+     * @var string
+     */
+    protected $sessionKey = 'pmill\Auth';
+
+    /**
      * @var bool
      */
     protected $loginLimitReached = false;
@@ -43,7 +48,7 @@ class Authenticate
     {
         $sessionFactory = new \Aura\Session\SessionFactory;
         $session = $sessionFactory->newInstance($_COOKIE);
-        $this->session = $session->getSegment('pmill\Auth\Login');
+        $this->session = $session->getSegment($this->sessionKey);
 
         $this->passwordHelper = new Password;
 
@@ -209,6 +214,22 @@ class Authenticate
     public function setPasswordHelper(Interfaces\PasswordHelper $passwordHelper)
     {
         $this->passwordHelper = $passwordHelper;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSessionKey()
+    {
+        return $this->sessionKey;
+    }
+
+    /**
+     * @param string $sessionKey
+     */
+    public function setSessionKey($sessionKey)
+    {
+        $this->sessionKey = $sessionKey;
     }
 
 }
